@@ -21,6 +21,7 @@ import { AuthProvider } from '../providers/auth/auth';
 import { LoginPage } from '../pages/login/login';
 import { TarefasProvider } from '../providers/tarefas/tarefas';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
+import { MetasProvider } from '../providers/metas/metas';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthProvider,
-    TarefasProvider
+    TarefasProvider,
+    MetasProvider
   ]
 })
 export class AppModule {}

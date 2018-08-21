@@ -1,0 +1,10 @@
+export enum AreaVida {
+    FINANCEIRO,
+    SAUDE,
+    EDUCACAO,
+    ESPIRITUAL,
+    COMPRASLAZER,
+    FAMILIAR,
+    PROFISSIONAL,
+    VICIOS
+}

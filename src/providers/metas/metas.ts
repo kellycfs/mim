@@ -1,3 +1,4 @@
+import { Meta } from './../../models/meta';
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 
@@ -5,20 +6,20 @@ import 'rxjs/add/operator/map';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs/Observable';
 import { AuthProvider } from '../../providers/auth/auth'
-import { Tarefas } from '../../models/tarefas'
+
 
 @Injectable()
-export class TarefasProvider {
+export class MetasProvider {
 
   // Definição do caminho onde será salvo os dados
   // dos usuários
   private caminho: string = '';
 
   // Coleção de tarefas
-  private tarefasCollection: AngularFirestoreCollection<Tarefas>;
+  private metasCollection: AngularFirestoreCollection<Meta>;
 
   // Lista de tarefas
-  tasks: Observable<Tarefas[]>;
+  metas: Observable<Meta>;
 
   // Parametros que vamos injetar no construtor
   constructor(private afs: AngularFirestore, private auth: AuthProvider) {
@@ -31,7 +32,7 @@ export class TarefasProvider {
       if(auth != null)
       {
         this.caminho = '/' + auth.email;
-        this.tarefasCollection = afs.collection<Tarefas>(this.caminho, ref => {
+        this.metasCollection = afs.collection<Meta>(this.caminho, ref => {
           return ref;
         });
 
@@ -44,15 +45,15 @@ export class TarefasProvider {
   // Este método será retorna um lista de tarefas pode ser
   // as finalizadas ou as que ainda não foram finalizadas
   // para filtrar passamos o parametro finalizada
-  pegarTarefas(finalizada: boolean) {
+  list(finalizada: boolean) {
     return this.afs
-      .collection<Tarefas>(this.caminho, ref => {
+      .collection<Meta>(this.caminho, ref => {
         return ref.where('finalizada', '==', finalizada);
       })
       .snapshotChanges()
       .map(actions => {
         return actions.map(a => {
-          const data = a.payload.doc.data() as Tarefas;
+          const data = a.payload.doc.data() as Meta;
           const id = a.payload.doc.id;
           return { id, ...data };
         })
@@ -60,18 +61,18 @@ export class TarefasProvider {
   }
 
   // Método usado para adicionar uma tarefa
-  adicionar(tarefa: Tarefas) {
-    this.tarefasCollection.add(tarefa);
+  add(meta: Meta) {
+    this.metasCollection.add(meta);
   }
 
   // Método usado para atualizar uma tarefa
-  atualizar (id: string, task:Tarefas) {
-    this.tarefasCollection.doc(id).update(task);
+  update(id: string, meta:Meta) {
+    this.metasCollection.doc(id).update(meta);
   }
 
   // Método usado para excluir uma tarefa
-  excluir (id: string) {
-    this.tarefasCollection.doc(id).delete();
+  delete(id: string) {
+    this.metasCollection.doc(id).delete();
   }
 
 }
