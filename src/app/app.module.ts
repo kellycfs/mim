@@ -22,6 +22,9 @@ import { LoginPage } from '../pages/login/login';
 import { TarefasProvider } from '../providers/tarefas/tarefas';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { MetasProvider } from '../providers/metas/metas';
+import { LottieAnimationViewModule } from 'ng-lottie';
+
+
 
 
 @NgModule({
@@ -43,6 +46,8 @@ import { MetasProvider } from '../providers/metas/metas';
     // Configuração do serviço de autenticação do firebase
     AngularFireAuthModule,
     AngularFirestoreModule,
+    LottieAnimationViewModule
+  
   ],
   bootstrap: [IonicApp],
   entryComponents: [
